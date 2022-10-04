@@ -12,9 +12,19 @@ h3 {
   position: absolute;
   bottom: 60px;
 }
+img {
+  padding-top: 0px;
+  padding-right: 32px;
+  display: block;
+  float: left;
+}
+h2 {
+  margin-top: 64px;
+}
 </style>
 
-# Electron: The cross-platform desktop app framework
+# ![h:100](images/electron-icon.svg) Electron
+## A cross-platform desktop app framework
 
 What's changed?
 How?
@@ -38,12 +48,11 @@ Atom Shell
 ---
 
 <style scoped>
-img {
-  display: block;
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
-}
+  img {
+    display: block;
+    bottom: 50px;
+    margin: auto;
+  }
 </style>
 
 # What?
@@ -54,14 +63,19 @@ A framework for creating desktop apps with web technologies
 
 ---
 
+<style scoped>
+  ul {
+    list-style: none;
+  }
+</style>
 # Why?
 
-* Build genuinely cross-platform applications
-* Deploy changes to apps without requiring user installation
-* Chromium APIs in your front-end code
-* Node APIs in the back-end code
-* Lots of APIs provided by Electron for system integration
-  - power management, storage, Tray/Menu, TouchBar (🤪)
+* 👷🏽‍♂️ Build genuinely cross-platform applications
+* 📮 Deploy changes to apps without requiring user installation
+* 🤖 Chromium APIs in your front-end code
+* 🍴Node APIs in the back-end code
+* 🧳 Lots of APIs provided by Electron for system integration
+  - ▸ power management, storage, Tray/Menu, TouchBar (🤪)
 
 ---
 <style scoped>
@@ -304,6 +318,10 @@ ul {
 
 ---
 
+![bg](images/mountain.jpeg)
+![bg](images/meadow.jpeg)
+
+---
 # Things I would have like to talked more about
 
 - Profiling
@@ -316,4 +334,5 @@ ul {
 # Thank you for listening
 
 @tomcartwrightuk
+github.com/tomcartwrightuk
 carescribe.io
