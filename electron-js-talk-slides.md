@@ -28,6 +28,13 @@ Why?
 # Act 1
 A new hope
 
+<!-- Electron 
+July 2013:
+Atom Shell
+2015 changed name to electron
+💥
+-->
+
 ---
 
 <style scoped>
@@ -54,24 +61,38 @@ A framework for creating desktop apps with web technologies
 * Chromium APIs in your front-end code
 * Node APIs in the back-end code
 * Lots of APIs provided by Electron for system integration
-  - power management, storage, Tray/Menu, TouchBar 🤪
+  - power management, storage, Tray/Menu, TouchBar (🤪)
 
 ---
 <style scoped>
 section {
-  background: #6b8794 ;
-  padding: 10px;
+  padding: 120px;
+}
+ul {
+  font-size: 56px;
+  list-style: none;
+}
+li img {
+  display: block;
+  padding-top: 8px;
+  padding-right: 24px;
+  float: left;
 }
 </style>
 
-![bg w: 80%](images/electron-apps.png)
+- ![h:60](images/electron-apps/slack.png) Slack
+- ![h:60](images/electron-apps/figma.png) Figma
+- ![h:60](images/electron-apps/notion.png) Notion
+- ![h:60](images/electron-apps/teams.png) MS Teams
+- ![h:60](images/electron-apps/1pw.png) 1Password
 
 ---
 
-# How?
-_Show and tell time_
+# How? Show and tell
 
-### Twang: The cross-platform guitar tuner
+![h:400](images/tunapp-screenshot.png)
+
+_Tunapp_ - the cross-platform guitar tuner
 
 ---
 <!-- _class: lead -->
@@ -97,19 +118,34 @@ Message passing via: Inter Process Communication (IPC)
 Inter process communication allows messages and data 
 to be passed between isolated processes and between processes
 of differing privlege levels
+
+STRUCTURED CLONE ALGORITHM
 -->
 
 ---
 
-# It's Node but not as we know it
+# It's Node 
+(but not as we node it)
 
-- Diagrams of the processes
+* NodeJS but with a different Application Binary Interface (ABI)
+* ASAR (tar-like archive format with indexing) support
 
 ---
 
+
 # What danger lurks within?
 
-⚠️ Dangerous Electron example ⚠️
+⚠️ Dangerous Electron example: With audience participation ⚠️
+
+📥 https://t.ly/KsWO
+
+➡️ https://library-of-secrets.herokuapp.com/
+
+```bash
+$ echo "SOMETHING SECRET" >> ~/very-secret
+$ cat ~/very-secret
+> "SOMETHING SECRET"
+```
 
 
 <!-- You can avoid this by setting nodeIntegration: true -->
@@ -124,49 +160,120 @@ Stay on target!
 
 # Security upgrades
 
-**April 2019: v5**
+* **2017** Figma create `BrowserView` for safely embedding content
+
+```javascript
+// In the main process.
+const { app, BrowserView, BrowserWindow } = require('electron')
+
+app.whenReady().then(() => {
+  const win = new BrowserWindow({ width: 800, height: 600 })
+
+  const view = new BrowserView()
+  win.setBrowserView(view)
+  view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
+  view.webContents.loadURL('https://electronjs.org')
+})
+```
+
+---
+
+* **2019: v5**
 Changing default `nodeIntegration` setting to `false`
 Content Security Policy (CSP) configuration upgrades
 
-**March 2021: v12**
+* **2021: v12 - 14**
 Enable `contextIsolation` by default
-
-**August 2021: v14**
 Removing `remote` module
+
+<!-- 
+contextIsolation: ensures that both your preload scripts and Electron's internal logic run in a separate context to the website you load in a webContents. 
+-->
 
 ---
 # Remote module
 
 What you used to able to do in your webContent (front-end) code:
-```
+```javascript
 const { systemPreferences } = require('electron').remote
 systemPreferences.getMediaAccessStatus('microphone')
 ```
 
 ---
 
-**August 2022: v20**
+**2022: v20**
 Sandboxing enabled by default
 
+![h:450](images/sandbox-model.png)
+
+<!-- 
+The sandbox limits the harm that malicious code can cause by limiting access to most system resources — sandboxed processes can only freely use CPU cycles and memory. In order to perform operations requiring additional privilege, sandboxed processes use dedicated communication channels to delegate tasks to more privileged processes.
+-->
 ---
+
+<style scoped>
+  li {
+    margin-left: -40px;
+    list-style-type: none;
+  }
+</style>
 
 # Use the safety net: Preload
 
-🔐 Configure the app securely
+* 🔐  Configure the app securely
 
-📞 Load a script defining the API your FE code can use to access the the main process
+* 📞  Define an API for _renderer_ ↔️ _main_
 
-➡ Dive into the _Twang_ code for examples
+* ➡  Dive into the _Tunapp_ code for examples
 
-<!-- Refer the Twang example here with the mic permissions -->
+<!-- Refer the Tunapp example here with the mic permissions -->
 
 ---
 
+<style scoped>
+  li {
+    margin-left: -40px;
+    list-style-type: none;
+  }
+</style>
+
 # Operating with the OS
 
-🖥 Electron APIs for OS specific functions
+* 🖥 Electron APIs for OS specific functions
 
-🍴 Forking other processes
+* 🍴 Forking other processes
+
+* 💪🏼 NodeJS workers
+
+* 🔌 Dubious uses for WebSockets?
+
+
+<!-- Show example of setting up a menu for an app 
+
+shoe electron api docs https://www.electronjs.org/docs/latest/api/app-->
+
+---
+# Building, distribution, and updating
+
+Four steps
+
+1. Compile from your source
+2. Bundle up with Electron
+3. Create an installer
+4. Handling auto-updates
+
+<!-- show example of unbundling an asar 
+
+-->
+
+---
+
+# "Meta" bundling libraries
+
+Electron Forge or Electron Builder
+
+* Both can help you with the 4 tasks
+* Both make use of some of the sub-packages that deal with specific aspects (e.g. electron-packager)
 
 ---
 
@@ -178,18 +285,35 @@ Sandboxing enabled by default
 
 ---
 
+<style scoped>
+section {
+  background: #e8e1cb;
+  color: #455a64;
+}
+ul {
+  font-size: 56px;
+  list-style: none;
+}
+</style>
 # Alternatives
 
-- Tauri
-- Wails
-- neutralino.js
-- Flutter
+- ![h:50](images/tauri-logo.svg)
+- ![h:50](images/wails-logo.svg)
+- ![h:50](images/neutralino-logo.png) neutralino.js
+- ![h:50](images/flutter-logo.svg)
 
 ---
 
 # Things I would have like to talked more about
 
 - Profiling
-- Organising code for true cross-platform apps: web, desktop, mobile 
+- Organising code for true cross-platform apps: web, desktop, mobile
+- WASM
 
 ---
+<!-- _class: lead -->
+
+# Thank you for listening
+
+@tomcartwrightuk
+carescribe.io
