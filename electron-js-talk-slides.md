@@ -6,6 +6,18 @@ class:
 ---
 
 <style scoped>
+  img {
+    display: block;
+    margin: auto;
+  }
+</style>
+
+## Live transcript of this talk available at
+
+![](images/a-qr-code.png)
+
+---
+<style scoped>
 h3 {
   display: block;
   font-weight: 400;
@@ -31,6 +43,12 @@ How?
 Why?
 
 ### Tom Cartwright - CTO at CareScribe
+
+<!---
+Small tech company based in Bristol. We build software with the aim of making the world more accessible
+We currently have two products: talktype which is a dication applcation
+and Caption.Ed which is transcript-driven note taking solution
+--->
 
 ---
 <!-- _class: lead -->
@@ -63,6 +81,14 @@ A framework for creating desktop apps with web technologies
 
 ---
 
+# How? Show and tell
+
+![h:400](images/tunapp-screenshot.png)
+
+_Tunapp_ - the cross-platform guitar tuner
+
+---
+
 <style scoped>
   ul {
     list-style: none;
@@ -71,10 +97,10 @@ A framework for creating desktop apps with web technologies
 # Why?
 
 * 👷🏽‍♂️ Build genuinely cross-platform applications
+* 📦 Share code between different platforms
 * 📮 Deploy changes to apps without requiring user installation
 * 🤖 Chromium APIs in your front-end code
-* 🍴Node APIs in the back-end code
-* 🧳 Lots of APIs provided by Electron for system integration
+* 🧳 Lots of APIs for system integration
   - ▸ power management, storage, Tray/Menu, TouchBar (🤪)
 
 ---
@@ -99,14 +125,6 @@ li img {
 - ![h:60](images/electron-apps/notion.png) Notion
 - ![h:60](images/electron-apps/teams.png) MS Teams
 - ![h:60](images/electron-apps/1pw.png) 1Password
-
----
-
-# How? Show and tell
-
-![h:400](images/tunapp-screenshot.png)
-
-_Tunapp_ - the cross-platform guitar tuner
 
 ---
 <!-- _class: lead -->
@@ -171,7 +189,13 @@ $ cat ~/very-secret
 Stay on target!
 
 ---
-
+<style scoped>
+  ul {
+    display: block;
+    list-style: none;
+    margin-left: -32px;
+  }
+</style>
 # Security upgrades
 
 * **2017** Figma create `BrowserView` for safely embedding content
@@ -191,6 +215,13 @@ app.whenReady().then(() => {
 ```
 
 ---
+<style scoped>
+  ul {
+    display: block;
+    list-style: none;
+    margin-left: -32px;
+  }
+</style>
 
 * **2019: v5**
 Changing default `nodeIntegration` setting to `false`
@@ -227,8 +258,8 @@ The sandbox limits the harm that malicious code can cause by limiting access to 
 
 <style scoped>
   li {
-    margin-left: -40px;
     list-style-type: none;
+    margin-left: -40px;
   }
 </style>
 
@@ -246,8 +277,8 @@ The sandbox limits the harm that malicious code can cause by limiting access to 
 
 <style scoped>
   li {
-    margin-left: -40px;
     list-style-type: none;
+    margin-left: -40px;
   }
 </style>
 
@@ -267,6 +298,20 @@ The sandbox limits the harm that malicious code can cause by limiting access to 
 shoe electron api docs https://www.electronjs.org/docs/latest/api/app-->
 
 ---
+
+```javascript
+  const cmd = spawn(execPath("YourBinary"), ["flags and options"]);
+
+  cmd.stdout.on("data", (data) => {
+    log.info(`Your binary returned some data in stdout`);
+    doThings();
+  });
+
+  cmd.stderr.on("data", (data) => {
+    log.error(`It errored`);
+  });
+```
+---
 # Building, distribution, and updating
 
 Four steps
@@ -282,7 +327,7 @@ Four steps
 
 ---
 
-# "Meta" bundling libraries
+# Meta bundling libraries
 
 Electron Forge or Electron Builder
 
